@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 
 # database imitation
-posts = [ 
+posts = [
     {
         'id': 0,
         'location': 'Остров отчаянья',

@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 # database imitation
@@ -46,15 +47,18 @@ posts = [
 
 
 def index(request):
-    template_name = 'not_implement'
-    return render(request, template_name)
+    template_name = 'blog/index.html'
+    context = {
+        'posts': posts
+    }
+    return render(request, template_name, context=context)
 
 
 def post_detail(request, id):
-    template_name = 'not_implement'
-    post = next(filter(lambda x: x.id == id, post_detail), None)
+    template_name = 'blog/detail.html'
+    post = next(filter(lambda x: x['id'] == id, posts), None)
     if post is None:
-        raise ValueError(id)
+        raise Http404(f'Post with id:{id} does not exist')
     context = {
         'post': post
     }
@@ -62,7 +66,7 @@ def post_detail(request, id):
 
 
 def category_posts(request, category_slug):
-    template_name = 'not_implement'
+    template_name = 'blog/category.html'
     context = {
         'category': category_slug
     }
